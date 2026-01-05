@@ -5,8 +5,8 @@ on:
 
 jobs:
   test:
-    name: Test setup-php speed on ubuntu-slim
-    runs-on: ubuntu-slim
+    name: Test setup-php speed on ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
