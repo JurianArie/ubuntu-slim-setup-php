@@ -5,13 +5,29 @@ on:
 
 jobs:
   test:
-    name: Test setup-php speed on ubuntu-slim
+    name: Test basic PHP + Composer on ubuntu-slim
     runs-on: ubuntu-slim
+
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@verbose
-        with:
-          php-version: '8.5'
-          extensions: none
+      - name: Install PHP and Composer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            php-cli \
+            php-mbstring \
+            php-zip \
+            php-curl \
+            unzip \
+            curl
+
+          # Install Composer
+          curl -sS https://getcomposer.org/installer | php -- \
+            --install-dir=/usr/local/bin \
+            --filename=composer
+
+      - name: Verify versions
+        run: |
+          php -v
+          composer --version
